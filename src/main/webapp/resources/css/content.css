@@ -1,0 +1,133 @@
+body{
+    width: 100%;
+    min-width: 1200px;
+    min-height: 100%;
+}
+/* header */
+header {
+    width: 100%;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    align-items: center;
+    height: 72px;
+    box-sizing: border-box;
+    transition: top .2s ease-in-out;
+}
+.inner-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+header .gnb {
+    width: 100%;
+    padding: 0 20px;
+}
+header .gnb h1 a{
+    display: block;
+    width: 74px;
+}
+header .gnb h1 img{
+    width: 100%;
+}
+header .gnb .nav {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+header .gnb .menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .gnb .menu li a{
+    font-weight: 700;
+    font-size: 16px;
+    color: #4d5159;
+}
+header .gnb .menu li a:hover{
+    color: #ff6f0f;
+}
+header .gnb .search {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+header .gnb .search input {
+    width: 30rem;
+    background: #f2f3f6;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.8rem 1.4rem;
+    box-sizing: border-box;
+}
+
+header .gnb .search input:focus {
+    outline: 1px solid #ff6f0f;
+  }
+
+header .gnb .search button {
+    background: #fff;
+    border: 1px solid #d1d3d8;
+    color: #212124;
+    font-weight: 700;
+    border-radius: 0.4rem;
+    padding: 0.8rem 1.4rem;
+}
+
+.utill{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.utill > div{
+    position: relative;
+}
+.utill > div:first-child:before {
+    display: none;
+}
+.utill > div:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -40px;
+    border-right: 1px solid #d8d8d8;
+    height: 16px;
+    padding-right: 20px;
+}
+.utill a {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -.23px;
+}
+.utill a:hover {
+    text-decoration: underline;
+}
+.utill div.icon a {
+    display: flex;
+    align-items: center;
+    gap:4px;
+}
+.utill div a > img {
+    width: 16px;
+    height: 16px;
+}
+
+
+
+/* contents */
+.contents{
+    padding-top: 70px;
+}
+
+
+
+

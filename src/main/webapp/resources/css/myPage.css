@@ -1,0 +1,159 @@
+#myPage-section1{
+    margin-top: 40px;
+    font-size: 20px;
+    margin-left: 100px;
+    font-weight: 500;
+    
+}
+
+#myPage-section2{
+    margin-left: 100px;
+    margin-top: 70px;
+    display: flex;
+    justify-content:space-around
+}
+
+#myPage-section2 > div > img{
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+#myPage-section2 > div{
+    display: flex;
+    flex-direction: column;
+}
+
+#change-profile{
+    height: 40px;
+    width: 180px;
+    background-color: #ff6f0f;
+    border: none;
+    color: white;
+}
+
+#delete-member{
+    height: 40px;
+    width: 180px;
+    border: 1px solid #ff6f0f;
+    background-color: white;
+    color: #ff6f0f;
+
+}
+
+#myPage-section2-1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#myPage-section2-1 img{
+    width: 200px;
+    height: 200px;
+}
+
+#myPage-section2-2{
+    padding-left: 100px;
+}
+
+#myPage-section3{
+    margin-left: 100px;
+    
+}
+
+
+#enroll-form input{
+    border: 1px solid gainsboro;
+    height: 32px;
+    margin: 15px 0px;
+    width: 350px;
+}
+
+#enroll-form table{
+    display: flex;
+    flex-direction: column;
+    justify-self:center;
+    align-items: center;
+}
+
+.table-title {
+    text-align: left; /* Adjust the text alignment (e.g., right) */
+  
+
+}
+.table-content{
+    margin-bottom: 20px;
+    height: 40px;
+}
+
+.table-button{
+    margin-left: 5px;
+    height: 32px;
+    width: 80px;
+    background-color:  #ff6f0f;
+    border: none;
+    color: white;
+
+}
+
+* {
+    list-style: none;
+}
+
+
+
+
+.menu-nav{
+    font-size: 16pt;
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+ }
+ .menu-nav li {
+   display: inline-block;/*여백 없이 좌측으로 붙은 li*/
+   padding: 0 40px 0 0;
+ }
+ .menu-nav a{
+    color: black;/*폰트컬러*/
+    font-weight: 200;/*폰트굵기*/
+    text-decoration: none;/*a href 밑줄 등 글자 꾸밈 없음*/
+    line-height: 40px;
+ }
+ .menu-nav a:after {/*after 가상요소*/
+    display:block;/*a요소를 블록 요소라고 선언*/
+    width:100%;/*카테고리 메뉴 밑줄의 크기를 동일하게 주기 위해 width 설정*/
+ /*혹시 동일하지 않길 바란다면 width 삭제*/
+    content: '';
+    border-bottom: solid 2px #ff6f0f;
+    transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
+    transition: transform 250ms ease-in-out; /*변형 방식*/
+ }
+ .menu-nav a:hover:after {
+    transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+ }
+
+
+
+
+
+
+
+#myPage-section3{
+	
+    margin-left: 100px;
+}
+
+.myPage-section4{
+    border-top: 1px solid rgb(211, 208, 208);
+    padding-top: 20px;
+    display: flex;
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.myPage-section4-1{
+    margin-left: 40px;
+}
+
+.myPage-section4-contnet{
+    margin-bottom: 20px;
+}
