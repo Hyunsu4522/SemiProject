@@ -54,7 +54,7 @@ private Properties prop = new Properties();
 	                  rset.getDate("enroll_date"),
 	                  rset.getDate("modify_date"),
 	                  rset.getString("status"),
-	                  rset.getString("profile_url")
+                     rset.getString("profile_url")
 	                  
 	                  );
 	         }
@@ -154,7 +154,8 @@ public Member selectMember(Connection conn, String userId) {
                 rset.getString("address"),
                 rset.getDate("enroll_date"),
                 rset.getDate("modify_date"),
-                rset.getString("status")
+                rset.getString("status"),
+                rset.getString("profile_url")
                 );
        }
 
