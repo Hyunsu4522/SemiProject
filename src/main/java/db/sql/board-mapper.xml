@@ -101,6 +101,7 @@
             JOIN ATTACHMENT A ON (B.BOARD_NO = A.REF_BNO)
             WHERE B.BOARD_WRITER = ?
             AND B.STATUS='Y'
+            AND B.SALE_YN = 'Y'
             ORDER BY B.BOARD_NO DESC)C
             )
     WHERE RNUM BETWEEN 1 AND 5
@@ -155,7 +156,7 @@
       select count(*) as "count"
       from board
       where status = 'Y'
-      AND SALE_YN= 'N'
+      AND board_writer = ?
    </entry>
    
    <entry key="selectAllBoardList">
@@ -307,6 +308,30 @@
 	                ,?
 	                )
   	 </entry>
+  	 <entry key="increaseCount">
+		UPDATE BOARD
+		   SET COUNT = COUNT + 1
+		 WHERE BOARD_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+  	 <entry key="selectBoard">
+		SELECT BOARD_NO
+		     , BOARD_TITLE
+		     , BOARD_CONTENT
+		     , USER_ID
+		     , TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') "CREATE_DATE"
+		  FROM BOARD
+		  JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		 WHERE BOARD_NO = ?
+	</entry>
+	<entry key="selectAttachment">
+		SELECT FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		 FROM ATTACHMENT
+		 WHERE REF_BNO = ?
+	</entry>
 </properties>
 
 
