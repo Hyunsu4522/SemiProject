@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.semi.board.model.vo.Board, com.semi.board.model.vo.Reply, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.semi.board.model.vo.Board, com.semi.board.model.vo.Reply, java.util.ArrayList, com.semi.common.model.vo.Attachment"%>
     
 <%
 	Board b = (Board)request.getAttribute("b");
 	ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
+	Attachment at = (Attachment)request.getAttribute("at");
 	
 %>
 
@@ -261,7 +262,7 @@
     <main class="container">
         <!-- contents -->
         <div class="contents" id="contents">
-        <input type="hidden" name="bordNo" value="1" >
+        <input type="hidden" name="bno" value="<%=b.getBoardNo()%>" >
             <div class="contents-wrap">
                 <h1 class="sr-only">루이비통 카드지갑</h1>
                 <section class="swiper-images">
@@ -415,7 +416,7 @@
                     		$.ajax({
                     			url: "rlist.bo",
                     			data: {
-                    				bno: 1
+                    				bno: <%=b.getBoardNo()%>
                     			},
                     			success: function (res) {
                     				let str = "";
@@ -452,7 +453,7 @@
                                 url : "rinsert.bo",
                                 data : {
                                     content: document.getElementById("reply-content").value,
-                                    bno: 1
+                                    bno: <%=b.getBoardNo()%>
                                 },
                                 type:"post",
                                 success:function(res){
