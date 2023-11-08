@@ -34,6 +34,7 @@ public class PurchaseBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("왓엉");
 		int listCount;  	//현재 총 게시글 수
 		int currentPage; 	//현재 페이지(즉, 사용자가 요청한 페이지)
 		int pageLimit;		//페이지 하단에 보여질 페이징바의 페이지 최대의 개수
@@ -49,6 +50,7 @@ public class PurchaseBoardController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("loginUser");
 		int bwriter = m.getUserNo();
+		System.out.println(bwriter);
 		
 		listCount = new BoardService().selectSellListCount(bwriter);
 		

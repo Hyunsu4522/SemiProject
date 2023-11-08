@@ -425,7 +425,7 @@ table.update  tbody tr td input{
                               	str +=  "<div>"+
                                   "<img src='/carrot/" + board.titleImg + "'>"+
                               "</div>"+
-                              "<div class='myPage-section4-1'>"+
+                              "<div class='myPage-section4-1' onclick=\"location.href='/carrot/detailPage.bo?bno=" + board.boardNo + "'\">"+
                                   "<h2  class='myPage-section4-contnet'>"+board.boardTitle+"</h2>"+
                                   "<div  class='myPage-section4-contnet' style='color: rgba(173, 167, 167, 0.801); font-size: 15px; font-weight: 500;'>"+board.address+"</div>"+
                                   "<h2  class='myPage-section4-contnet'>"+board.amount+"</h2>"+      
@@ -468,7 +468,7 @@ table.update  tbody tr td input{
                                 	str +=  "<div>"+
                                     "<img src='/carrot/" + board.titleImg + "'>"+
                                 "</div>"+
-                                "<div class='myPage-section4-1'>"+
+                                "<div class='myPage-section4-1' onclick=\"location.href='/carrot/detailPage.bo?bno=" + board.boardNo + "'\">"+
                                     "<h2  class='myPage-section4-contnet'>"+board.boardTitle+"</h2>"+
                                     "<div  class='myPage-section4-contnet' style='color: rgba(173, 167, 167, 0.801); font-size: 15px; font-weight: 500;'>"+board.address+"</div>"+
                                     "<h2  class='myPage-section4-contnet'>"+board.amount+"</h2>"+      
@@ -510,7 +510,7 @@ table.update  tbody tr td input{
                                 	str +=  "<div>"+
                                     "<img src='/carrot/" + board.titleImg + "'>"+
                                 "</div>"+
-                                "<div class='myPage-section4-1'>"+
+                                "<div class='myPage-section4-1' onclick=\"location.href='/carrot/detailPage.bo?bno=" + board.boardNo + "'\">"+
                                     "<h2  class='myPage-section4-contnet'>"+board.boardTitle+"</h2>"+
                                     "<div  class='myPage-section4-contnet' style='color: rgba(173, 167, 167, 0.801); font-size: 15px; font-weight: 500;'>"+board.address+"</div>"+
                                     "<h2  class='myPage-section4-contnet'>"+board.amount+"</h2>"+      
@@ -531,7 +531,16 @@ table.update  tbody tr td input{
     </script>
         
     </section>
+    <!--  <script>
+
+    	$(function(){
+        		$(".myPage-section4 > div > img").click(function(){
+        			
+        			location.href = "<%=contextPath%>/detailPage.bo?bno=" + $(this).children().eq(0).text();
+        		})
+        	})
     
+    </script>-->
     <script>
         (() => {
       const underLine = document.getElementById("menu_under_line"); //밑줄 그리는 요소
