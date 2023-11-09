@@ -36,7 +36,7 @@ public class AjaxReplyInsertConroller extends HttpServlet {
 		String replyContent = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-	
+		
 		Reply r = new Reply();
 		r.setReplyContent(replyContent);
 		r.setRefBoardNo(boardNo);

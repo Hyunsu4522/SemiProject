@@ -31,6 +31,7 @@ public class TradeConfirmController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		request.setCharacterEncoding("UTF-8");
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		int rWriter = Integer.parseInt(request.getParameter("rwriter"));
@@ -49,8 +50,6 @@ public class TradeConfirmController extends HttpServlet {
 			request.setAttribute("errorMsg", "거래 완료설정에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		
 	}
 
 	/**
