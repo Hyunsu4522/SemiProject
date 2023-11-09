@@ -24,6 +24,7 @@
 	    margin: 0 auto;
 	}
 	
+	.product:hover{cursor : pointer};
 	
 	.contents .contents-wrap{
 	    font-size: 30px;
@@ -57,7 +58,7 @@
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
-	   
+	   	hover{cursor : pointer};
 	    
 	}
 	
@@ -115,17 +116,18 @@
                 </div>
            			
                 <div class="up-nav">
-                       <%for(Board b :list){ %>    
-                    <nav class="nav" onclick="imgClick()">
+                       <%for(Board b :list){ %>  
+                         
+                    <nav class="nav" >
                        
-                        <div class = "product">
-							<a href="#none"><img src="<%=contextPath %>/<%=b.getTitleImg() %>"></a>
+                        <div class = "product" onclick="location.href='<%=contextPath%>/detailPage.bo'" >
+							<img src="<%=contextPath %>/<%=b.getTitleImg() %>">
                             <ul class="product-menu">
-                                <li ><a href="#none"><%=b.getBoardTitle() %></a></li>
+                                <li ><%=b.getBoardTitle() %></li>
 								<br>
-                                <li><a href="#none">판매중</a></li>
+                                <li>판매중</li>
 								<br>
-                                <li class="price"><a href="#none"><%=b.getAmount() %>원</a></li>
+                                <li class="price"><%=b.getAmount() %>원</li>
 								
                             </ul>
 							
@@ -156,7 +158,9 @@
  </div>
 
  <script>
-	function imgClick(){}
+	function imgClick(){
+		location href = "<%=contextPath%>/boardlist.bo"
+	}
 	
 	
 	
