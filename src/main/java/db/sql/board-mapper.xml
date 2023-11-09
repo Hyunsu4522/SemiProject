@@ -79,7 +79,7 @@
             JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
             JOIN ATTACHMENT A ON (B.BOARD_NO = A.REF_BNO)
             WHERE B.BOARD_WRITER = ?
-           	AND B.STATUS='Y'
+            AND B.STATUS = 'Y'
             ORDER BY B.BOARD_NO DESC)C
             )
     WHERE RNUM BETWEEN 1 AND 5
@@ -208,7 +208,7 @@
 	            JOIN ATTACHMENT A ON (B.BOARD_NO = A.REF_BNO)
 	            JOIN SALE_LOG S on (B.BOARD_NO = S.BOARD_NO )
 	            WHERE S.BUYER = ?
-	            AND B.STATUS='Y'
+	            AND B.STATUS = 'Y'
 	            ORDER BY B.BOARD_NO DESC)C
 	            )
 	    WHERE RNUM BETWEEN 1 AND 5
@@ -334,6 +334,17 @@
 		 FROM ATTACHMENT
 		 WHERE REF_BNO = ?
 	</entry>
+	<entry key="saleYnAlter">
+		UPDATE BOARD
+		   SET SALE_YN = 'Y'
+		 WHERE BOARD_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	<entry key="insertSaleLog">
+		INSERT INTO SALE_LOG 
+		VALUES (?, ?, SYSDATE,'Y',?)
+	</entry>
+	
 </properties>
 
 

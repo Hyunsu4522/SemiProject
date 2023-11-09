@@ -1,5 +1,6 @@
 package com.semi.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.semi.board.model.service.BoardService;
-import com.semi.board.model.vo.Reply;
 import com.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxReplyInsertConroller
+ * Servlet implementation class TradeConfirmController
  */
-@WebServlet("/rinsert.bo")
-public class AjaxReplyInsertConroller extends HttpServlet {
+@WebServlet("/trade.bo")
+public class TradeConfirmController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxReplyInsertConroller() {
+    public TradeConfirmController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +31,25 @@ public class AjaxReplyInsertConroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		request.setCharacterEncoding("UTF-8");
-		
-		String replyContent = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int rWriter = Integer.parseInt(request.getParameter("rwriter"));
+		Member m = ((Member)request.getSession().getAttribute("loginUser"));
 		
-		Reply r = new Reply();
-		r.setReplyContent(replyContent);
-		r.setRefBoardNo(boardNo);
-		r.setReplyWriter(String.valueOf(userNo));
+		BoardService bService = new BoardService();// 여러번쓰기위해 생성해놓고 씀
 		
-		int result = new BoardService().insertReply(r);
+		int result = bService.saleYnAlter(m,boardNo,rWriter);
 		
-		response.getWriter().print(result);
+		//응답뷰요청
+		if(result > 0) {//성공시에는 목록으로 가야함(jsp/list.bo?cpage=1)
+			request.getSession().setAttribute("alertMsg", "거래완료 설정에 성공하였습니다.");
+			response.sendRedirect(request.getContextPath() +"/detailPage.bo?cpage=boardNo");
+			
+		}else {//실패시 => 업로드된 파일 삭제해주고 에러페이지
+			request.setAttribute("errorMsg", "거래 완료설정에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**
