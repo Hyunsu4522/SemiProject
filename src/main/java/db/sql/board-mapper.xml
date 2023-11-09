@@ -252,7 +252,7 @@
 		JOIN MEMBER ON (REPLY_WRITER = USER_NO)
 		WHERE R.STATUS = 'Y'
 		AND REF_BNO = ?
-		ORDER BY REPLY_NO DESC
+		ORDER BY REPLY_NO ASC
 	</entry>
 	<entry key="insertReply">
 		INSERT
