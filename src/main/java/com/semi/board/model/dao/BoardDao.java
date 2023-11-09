@@ -15,6 +15,7 @@ import com.semi.board.model.vo.Board;
 import com.semi.board.model.vo.Reply;
 import com.semi.common.model.vo.Attachment;
 import com.semi.common.model.vo.PageInfo;
+import com.semi.member.model.vo.Member;
 
 public class BoardDao{
 	private Properties prop = new Properties();
@@ -608,7 +609,7 @@ public class BoardDao{
 				close(rset);
 				close(pstmt);
 			}
-			System.out.println(b);
+//			System.out.println(b);
 			
 			return b;
 			
@@ -645,4 +646,50 @@ public class BoardDao{
 			
 			return at;
 		}
+	  //board에서 sale_yn Y로 바꿈
+	  public int saleYnAlter(Connection conn,Member m,int boardNo) {
+	     int result = 0;
+	     
+	     PreparedStatement pstmt = null;
+	     String sql = prop.getProperty("saleYnAlter");
+	     
+	     try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, boardNo);
+	        
+	        result = pstmt.executeUpdate();
+	        
+	     } catch (SQLException e) {
+	        e.printStackTrace();
+	     } finally {
+	        close(pstmt);
+	     }
+	     
+	     return result;
+	  }
+	  
+	  //sale_log 에 insert문 날려서 거래정보담기
+	  public int insertSaleLog(Connection conn,Member m,int boardNo, int rWriter) {
+		  int result = 0;
+		     
+		     PreparedStatement pstmt = null;
+		     String sql = prop.getProperty("insertSaleLog");
+		     
+		     try {
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setInt(1, m.getUserNo());
+		        pstmt.setInt(2, boardNo);
+		        pstmt.setInt(3, rWriter);
+		        
+		        result = pstmt.executeUpdate();
+		        
+		     } catch (SQLException e) {
+		        e.printStackTrace();
+		     } finally {
+		        close(pstmt);
+		     }
+		     
+		     return result;
+	  }
+	  
 }
