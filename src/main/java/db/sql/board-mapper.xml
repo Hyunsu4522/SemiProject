@@ -334,6 +334,17 @@
 		 FROM ATTACHMENT
 		 WHERE REF_BNO = ?
 	</entry>
+	<entry key="saleYnAlter">
+		UPDATE BOARD
+		   SET SALE_YN = 'Y'
+		 WHERE BOARD_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	<entry key="insertSaleLog">
+		INSERT INTO SALE_LOG 
+		VALUES (?, ?, SYSDATE,'Y',?)
+	</entry>
+	
 </properties>
 
 
