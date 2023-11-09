@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.semi.board.model.vo.Board, com.semi.board.model.vo.Reply, java.util.ArrayList, com.semi.common.model.vo.Attachment"%>
-    
 <%
 	Board b = (Board)request.getAttribute("b");
 	ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
@@ -302,118 +301,41 @@
                                 <img src="./resources/images/icon/profile_sample_img.png" alt="" >
                             </div>
                             <div class="profile-left">
-                                <div class="name">닉네임</div>
+                                <div class="name"><%=b.getBoardWriter()%></div>
                                 <div class="adress">서울특별시 강남구 역삼동</div>
                             </div>                     
                         </div>
                     </a>
                 </section>
                 <section class="prd-detail">
-                    <h1 style="display: inline-block;" class="prd-title">루이비통 카드지갑</h1>
+                    <h1 class="prd-title"><%=b.getBoardTitle()%></h1>
                     <button id="done-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openModalBtn">
 					    거래완료
 					</button>
-                   
                     <p class="category">
-                        여성잡화 ∙<span> 4일전</span>
+                        <span><%=b.getCreateDate()%></span>
                     </p>
                     <p class="prd-price">
-                        18,000원
+                        <%=b.getAmount()%>
                     </p>
-                    <p class="detail">공홈에서 구매하고 인천롯백에서 픽업한 정품입니다!
-                        <br>사용감 많아요!!!
-                        <br>사진 꼭 확인하시고 꼭 구매하실 분만 연락주세요!
+                    <p class="detail"><%=b.getBoardContent()%>
                     </p>
-                    <span class="counts">채팅<span>26</span></span>
+                    <span class="counts">조회수<span>3</span></span>
                 </section>
                 <section class="comment">
                     <h2>댓글<span>(2)</span></h2>
-                    <%if(list != null){ %>
-                    	<p style="padding: 50px 0; text-align: center;">등록된 댓글이 없습니다.</p>
-                    <%} else {%>
-                    <div id="reply-area" class="profile-detail-info comment">
-                        <ul>
-                            <!--<li>
-                                <div class="flex">
-                                    <div class="profile-image">
-                                        <img src="./resources/images/icon/profile_sample_img.png" alt="">
-                                    </div>
-                                    <div class="profile-left">
-                                        <div class="name">닉네임</div>
-                                        <p class="category">
-                                            여성잡화 ∙<span> 4일전 </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="comment-contents">
-                                	<p class="detail comment">
-	                                    댓글입니다만...
-	                                </p>
-		                                <div class="btns">
-											<button type="button">수정</button>
-											<button type="button">삭제</button>
-										</div>
-                                </div>
-                                <ul class="recomment">
-                                    <li>
-                                        <div class="flex">
-                                            <div class="profile-image">
-                                                <img src="./resources/images/icon/profile_sample_img.png" alt="">
-                                            </div>
-                                            <div class="profile-left">
-                                                <div class="name">닉네임</div>
-                                                <p class="category">
-                                                    여성잡화 ∙<span> 3일전 </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="comment-contents">
-		                                	<p class="detail comment">
-			                                    대댓글입니다만...
-			                                </p>
-				                                <div class="btns">
-													<button type="button">수정</button>
-													<button type="button">삭제</button>
-												</div>
-		                                </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                      	<ul>
-                            <li>
-                                <div class="flex">
-                                    <div class="profile-image">
-                                        <img src="./resources/images/icon/profile_sample_img.png" alt="">
-                                    </div>
-                                    <div class="profile-left">
-                                        <div class="name">닉네임</div>
-                                        <p class="category">
-                                            여성잡화 ∙<span> 2일전 </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="comment-contents">
-                                	<p class="detail comment">
-	                                   답글달아죠...
-	                                </p>
-		                                <div class="btns">
-											<button type="button">수정</button>
-											<button type="button">삭제</button>
-										</div>
-                                </div>
-                            </li>-->
-                            <!--   + "<div class='btns'>"
-        						+ "<button type='button'>수정</button>"
-        						+ "<button type='button'>삭제</button>"
-       						+ "</div>"-->
-                        </ul>
-                         <%} %>
+                   		<!-- 댓글이 그려지는곳 -->
+	                    <div id="reply-area" class="profile-detail-info comment">
+	                        <ul>
+	                        	 
+	                        </ul>
+	                    </div>
+	                  
                         <fieldset class="form comment-form">
 							<legend>댓글 쓰기</legend>
 							<%if (loginUser != null) { %>
 								<div class="form-control">
-									<textarea name="reply-content" id="reply-content" rows="3" title="댓글 입력" placeholder="댓글을 입력해주세요."></textarea>
+									<textarea name="reply-content" id="reply-content" rows="3" title="댓글 입력" placeholder="댓글을 입력해주세요." onkeyup="(event.keyCode === 13 ? insertReply() : false)"></textarea>
 								</div> 
 								<div class="btns-right">
 									<button type="button"><em>취소</em></button>
@@ -425,7 +347,7 @@
 								</div> 
 							<%} %>
 						</fieldset>
-                    </div>
+                    
                     <script>
                     	window.onload = function(){
                     		//댓글 가져와서 그려주기
@@ -438,33 +360,33 @@
                     				bno: <%=b.getBoardNo()%>
                     			},
                     			success: function (res) {
-                    				let str = "";
-                    				for (let reply of res) {
-                    					str += "<li>"
-	                    						+ "<div class='flex'>"
-	                    							+"<div class='profile-image'>"
-	                    								+ "<img src='./resources/images/icon/profile_sample_img.png' alt=''>"
-	                    								+  "<input class='done-reply' type='hidden' name='userId'+ value="+ reply.replyWriter + ">" 
-	                    							+ "</div>"
-		                    						+ "<div class='profile-left'>"
-		                    							+ "<div class='name'>" + reply.replyWriter + "</div>"
-		                    							+ "<p class='category'>"
-		                    								+ "여성잡화 ∙ <span>2일전</span>"
-		                    							+ "</p>"
-		                    						+ "</div>"
-	                    						+ "</div>"
-	                    						+ "<div class='comment-contents'>"
-	                    							+ "<p class='detail comment'>"
-	                    								+ reply.replyContent
-	                    							+ "</p>"
-	                    						+ "</div>"                   						
-                    						+ "</li>";
+                    				console.log(res)
+                    				if(res.length === 0){
+                    					document.querySelector("#reply-area ul").innerHTML = "<p style='padding: 50px 0; text-align: center;'>등록된 댓글이 없습니다.</p>";
+                    				} else {
+                    					let str = "";
+                        				for (let reply of res) {
+                        					str += "<li>"
+    	                    						+ "<div class='flex'>"
+    	                    							+"<div class='profile-image'>"
+    	                    								+ "<img src='./resources/images/icon/profile_sample_img.png' alt=''>"
+    	                    							+ "</div>"
+    		                    						+ "<div class='profile-left'>"
+    		                    							+ "<div class='name'>" + reply.replyWriter + "</div>"
+    		                    							+ "<p class='category'><span>" + reply.createDate + "</span></p>"
+    		                    							+ "</p>"
+    		                    						+ "</div>"
+    	                    						+ "</div>"
+    	                    						+ "<div class='comment-contents'>"
+    	                    							+ "<p class='detail comment'>"
+    	                    								+ reply.replyContent
+    	                    							+ "</p>"
+    	                    						+ "</div>"                   						
+                        						+ "</li>";
+                        				}
+                        				document.querySelector("#reply-area ul").innerHTML = str;
+                                        modalStart();
                     				}
-                    				document.querySelector("#reply-area ul").innerHTML = str;
-                    				
-                    				
-                    				//여기서 함수로 실행
-                    				modalStart();
                     			},
                     			error: function () {
                     				console.log("댓글목록 조회중 ajax 통신 실패");
@@ -481,6 +403,7 @@
                                 },
                                 type:"post",
                                 success:function(res){
+                                	console.log(res)
                                     if (res > 0) {//댓글작성 성공
                                     	document.getElementById("reply-content").value = "";
                                     	selectReplyList();
@@ -491,6 +414,8 @@
                                 }
                             })
                         }
+                    	 
+                    	 
                     </script>
                 </section>
             </div>

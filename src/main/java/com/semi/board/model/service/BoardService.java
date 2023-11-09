@@ -92,7 +92,7 @@ public class BoardService {
 	      ArrayList<Board> list = new BoardDao().selectAllBoardList(conn, pi);
 	      
 	      close(conn);
-	      System.out.println(list);
+
 	      return list;
 	   }
 	
