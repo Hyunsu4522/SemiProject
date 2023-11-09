@@ -133,7 +133,7 @@ public class BoardDao{
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(listCount);
+		
 		return listCount;
 		
 		
@@ -287,7 +287,6 @@ public class BoardDao{
         PreparedStatement pstmt = null;
         String sql = prop.getProperty("insertAttachmentList");
         
-           System.out.println(list);
            try {
               
               for (Attachment at : list) {
