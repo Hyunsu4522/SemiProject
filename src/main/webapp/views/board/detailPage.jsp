@@ -253,16 +253,23 @@
 		color:#ff6f0f;
 		font-weight: 600;
 	}
+    #done-button{
+        margin-left: 400px;
+        background-color: #ff6f0f;
+        border: none;
+        border-radius: 3px 3px;
+        height: 30px;
+        width: 100px;
+        font-weight: bolder;
+
+    }
 </style>
 </head>
-<body style=" width: 100%;
-    min-width: 1200px;
-    min-height: 100%;">
-	<%@ include file="/views/common/header.jsp" %>
+<body>
+	<%@ include file="../common/header.jsp"%>
     <main class="container">
         <!-- contents -->
         <div class="contents" id="contents">
-        <input type="hidden" name="bno" value="<%=b.getBoardNo()%>" >
             <div class="contents-wrap">
                 <h1 class="sr-only">루이비통 카드지갑</h1>
                 <section class="swiper-images">
@@ -294,7 +301,11 @@
                     </a>
                 </section>
                 <section class="prd-detail">
-                    <h1 class="prd-title">루이비통 카드지갑</h1>
+                    <h1 style="display: inline-block;" class="prd-title">루이비통 카드지갑</h1>
+                    <button id="done-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openModalBtn">
+					    거래완료
+					</button>
+                   
                     <p class="category">
                         여성잡화 ∙<span> 4일전</span>
                     </p>
@@ -425,6 +436,7 @@
 	                    						+ "<div class='flex'>"
 	                    							+"<div class='profile-image'>"
 	                    								+ "<img src='./resources/images/icon/profile_sample_img.png' alt=''>"
+	                    								+  "<input class='done-reply' type='hidden' name='userId'+ value="+ reply.replyWriter + ">" 
 	                    							+ "</div>"
 		                    						+ "<div class='profile-left'>"
 		                    							+ "<div class='name'>" + reply.replyWriter + "</div>"
@@ -441,6 +453,10 @@
                     						+ "</li>";
                     				}
                     				document.querySelector("#reply-area ul").innerHTML = str;
+                    				
+                    				
+                    				//여기서 함수로 실행
+                    				modalStart();
                     			},
                     			error: function () {
                     				console.log("댓글목록 조회중 ajax 통신 실패");
@@ -487,5 +503,79 @@
         },
         });
     </script>
+    <script>
+    	function Done(){
+    		const done = document.getElementsByClassName("done-reply").value;
+            console.log(done);
+    	}
+    </script>
+    
+    
+<!-- The Modal -->
+<div class="modal" id="openModalBtn">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">회원 선택</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+        <ul id="authorList">
+            <!-- 댓글 작성자 목록을 여기에 추가 -->
+        </ul>
+        <button id="modalSubmit">선택</button>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+	function modalStart() {
+	    const authors = document.getElementsByClassName("done-reply");
+	    const uniqueAuthors = new Set();
+	
+	    for (let i = 0; i < authors.length; i++) {
+	        uniqueAuthors.add(authors[i].value);
+	    }
+	
+	    const authorList = document.getElementById("authorList");
+	
+	    // 중복을 제거한 고유한 작성자 목록을 순회하며 리스트에 추가
+	    uniqueAuthors.forEach(author => {
+	        const listItem = document.createElement("li");
+	        listItem.textContent = author;		//author : 중복체크 된 댓글작성자
+	        
+	        listItem.addEventListener("click", function() {
+	            const selectedValue = this.textContent;
+	            
+	            // controller로 selectedValue를 전달하는 AJAX 요청
+	            const xhr = new XMLHttpRequest();
+	            xhr.open("POST", "trade.bo", true);
+	            xhr.setRequestHeader("Content-Type", "application/json");
+	            xhr.onreadystatechange = function() {
+	                if (xhr.readyState === 4 && xhr.status === 200) {
+	                    // 요청이 성공적으로 완료되었을 때의 처리
+	                    console.log("전송 완료");
+	                    window.location.href = "trade.bo";
+	                    console.log("전송 완료2");
+	                }
+	            };
+	            xhr.send(JSON.stringify({ value: selectedValue }));
+	        });
+	        	   
+	        authorList.appendChild(listItem);
+	    });
+	}
+</script>
+
+
+
 </body>
 </html>
