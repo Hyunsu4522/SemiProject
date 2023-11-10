@@ -32,7 +32,6 @@ public class TradeConfirmController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("옴");
 		request.setCharacterEncoding("UTF-8");
 		//Map<String, Integer> map = new HashMap<String, Integer>();
 		//Map.put("bno", Integer.parseInt(request.getParameter("bno")));

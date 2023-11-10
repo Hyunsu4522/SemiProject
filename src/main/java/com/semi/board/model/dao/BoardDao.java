@@ -598,7 +598,11 @@ public class BoardDao{
 								rset.getString("board_title"),
 								rset.getString("board_content"),
 								rset.getString("user_id"),
-								rset.getString("create_date")
+								rset.getString("create_date"),
+								rset.getInt("count"),
+								rset.getString("sale_yn"),
+								rset.getInt("amount"),
+								rset.getString("address")
 							);
 				}
 				
