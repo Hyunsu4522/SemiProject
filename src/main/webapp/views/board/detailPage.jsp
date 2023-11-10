@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.semi.board.model.vo.Board, com.semi.board.model.vo.Reply, java.util.ArrayList, com.semi.common.model.vo.Attachment"%>
-    
 <%
 	Board b = (Board)request.getAttribute("b");
 	ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
@@ -10,7 +9,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html>j
 <head>
 <meta charset="UTF-8">
 <title>상세페이지</title>
@@ -254,16 +253,52 @@
 		color:#ff6f0f;
 		font-weight: 600;
 	}
+    #done-button{
+        margin-left: 400px;
+        background-color: #ff6f0f;
+        border: none;
+        border-radius: 3px 3px;
+        height: 30px;
+        width: 100px;
+        font-weight: bolder;
+
+    }
+    /*modal*/
+.modal-title.updatest{
+   font-size: 24px;
+    font-weight: 700;
+    line-height: 35px;
+}
+.btn.updatest{
+   height: 60px;
+    padding: 0 40px;
+    font-weight: 700;
+    border-radius: 0;
+    margin-top: 16px;
+    background-color: #ff6f0f;
+    border: none;
+    font-size: 16px;
+}
+.btn-secondary.updatest:hover{
+   opacity: .8;
+    background-color: #ff6f0f;
+    border-color: #ff6f0f;
+}
+table.update  tbody tr td input{
+   width: 100%;
+    border: 1px solid gainsboro;
+    height: 40px;
+    margin: 15px 0px;
+    padding-left: 15px; 
+ 
+}
 </style>
 </head>
-<body style=" width: 100%;
-    min-width: 1200px;
-    min-height: 100%;">
-	<%@ include file="/views/common/header.jsp" %>
+<body>
+	<%@ include file="../common/header.jsp"%>
     <main class="container">
         <!-- contents -->
         <div class="contents" id="contents">
-        <input type="hidden" name="bno" value="<%=b.getBoardNo()%>" >
             <div class="contents-wrap">
                 <h1 class="sr-only"><%=b.getBoardTitle() %></h1>
                 <section class="swiper-images">
@@ -297,113 +332,41 @@
                                 <img src="./resources/images/icon/profile_sample_img.png" alt="" >
                             </div>
                             <div class="profile-left">
-                                <div class="name"><%=b.getBoardWriter() %></div>
-                                <div class="adress">@@@주소주소@@@</div>
-                            </div>
+                                <div class="name"><%=b.getBoardWriter()%></div>
+                                <div class="adress"><%=b.getAddress() %></div>
+                            </div>                     
                         </div>
                     </a>
                 </section>
                 <section class="prd-detail">
-                    <h1 class="prd-title"><%=b.getBoardTitle() %></h1>
+                    <h1 class="prd-title"><%=b.getBoardTitle()%></h1>
+                    <button id="done-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openModalBtn">
+					    거래완료
+					</button>
                     <p class="category">
-                        여성잡화 ∙<span> 4일전<%=b.getAmount() %></span>
+                        <span><%=b.getCreateDate()%></span>
                     </p>
                     <p class="prd-price">
-                        <%=b.getAmount() %>원
+                        <%=b.getAmount()%>
                     </p>
-                    <p class="detail">
-                    	<%=b.getBoardContent() %>
+                    <p class="detail"><%=b.getBoardContent()%>
                     </p>
-                    <span class="counts">채팅<span>26</span></span>
+                    <span class="counts">조회수<span><%=b.getCount() %></span></span>
                 </section>
                 <section class="comment">
                     <h2>댓글<span>(2)</span></h2>
-                    <%if(list != null){ %>
-                    	<p style="padding: 50px 0; text-align: center;">등록된 댓글이 없습니다.</p>
-                    <%} else {%>
-                    <div id="reply-area" class="profile-detail-info comment">
-                        <ul>
-                            <!--<li>
-                                <div class="flex">
-                                    <div class="profile-image">
-                                        <img src="./resources/images/icon/profile_sample_img.png" alt="">
-                                    </div>
-                                    <div class="profile-left">
-                                        <div class="name">닉네임</div>
-                                        <p class="category">
-                                            여성잡화 ∙<span> 4일전 </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="comment-contents">
-                                	<p class="detail comment">
-	                                    댓글입니다만...
-	                                </p>
-		                                <div class="btns">
-											<button type="button">수정</button>
-											<button type="button">삭제</button>
-										</div>
-                                </div>
-                                <ul class="recomment">
-                                    <li>
-                                        <div class="flex">
-                                            <div class="profile-image">
-                                                <img src="./resources/images/icon/profile_sample_img.png" alt="">
-                                            </div>
-                                            <div class="profile-left">
-                                                <div class="name">닉네임</div>
-                                                <p class="category">
-                                                    여성잡화 ∙<span> 3일전 </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="comment-contents">
-		                                	<p class="detail comment">
-			                                    대댓글입니다만...
-			                                </p>
-				                                <div class="btns">
-													<button type="button">수정</button>
-													<button type="button">삭제</button>
-												</div>
-		                                </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                      	<ul>
-                            <li>
-                                <div class="flex">
-                                    <div class="profile-image">
-                                        <img src="./resources/images/icon/profile_sample_img.png" alt="">
-                                    </div>
-                                    <div class="profile-left">
-                                        <div class="name">닉네임</div>
-                                        <p class="category">
-                                            여성잡화 ∙<span> 2일전 </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="comment-contents">
-                                	<p class="detail comment">
-	                                   답글달아죠...
-	                                </p>
-		                                <div class="btns">
-											<button type="button">수정</button>
-											<button type="button">삭제</button>
-										</div>
-                                </div>
-                            </li>-->
-                            <!--   + "<div class='btns'>"
-        						+ "<button type='button'>수정</button>"
-        						+ "<button type='button'>삭제</button>"
-       						+ "</div>"-->
-                        </ul>
-                         <%} %>
+                   		<!-- 댓글이 그려지는곳 -->
+	                    <div id="reply-area" class="profile-detail-info comment">
+	                        <ul>
+	                        	 
+	                        </ul>
+	                    </div>
+	                  
                         <fieldset class="form comment-form">
 							<legend>댓글 쓰기</legend>
 							<%if (loginUser != null) { %>
 								<div class="form-control">
-									<textarea name="reply-content" id="reply-content" rows="3" title="댓글 입력" placeholder="댓글을 입력해주세요."></textarea>
+									<textarea name="reply-content" id="reply-content" rows="3" title="댓글 입력" placeholder="댓글을 입력해주세요." onkeyup="(event.keyCode === 13 ? insertReply() : false)"></textarea>
 								</div> 
 								<div class="btns-right">
 									<button type="button"><em>취소</em></button>
@@ -415,7 +378,7 @@
 								</div> 
 							<%} %>
 						</fieldset>
-                    </div>
+                    
                     <script>
                     	window.onload = function(){
                     		//댓글 가져와서 그려주기
@@ -430,28 +393,38 @@
                     				bno: <%=b.getBoardNo()%>
                     			},
                     			success: function (res) {
-                    				let str = "";
-                    				for (let reply of res) {
-                    					str += "<li>"
-	                    						+ "<div class='flex'>"
-	                    							+"<div class='profile-image'>"
-	                    								+ "<img src='./resources/images/icon/profile_sample_img.png' alt=''>"
-	                    							+ "</div>"
-		                    						+ "<div class='profile-left'>"
-		                    							+ "<div class='name'>" + reply.replyWriter + "</div>"
-		                    							+ "<p class='category'>"
-		                    								+ "여성잡화 ∙ <span>2일전</span>"
-		                    							+ "</p>"
-		                    						+ "</div>"
-	                    						+ "</div>"
-	                    						+ "<div class='comment-contents'>"
-	                    							+ "<p class='detail comment'>"
-	                    								+ reply.replyContent
-	                    							+ "</p>"
-	                    						+ "</div>"                   						
-                    						+ "</li>";
+                    				console.log(res)
+                    				if(res.length === 0){
+                    					document.querySelector("#reply-area ul").innerHTML = "<p style='padding: 50px 0; text-align: center;'>등록된 댓글이 없습니다.</p>";
+                    				} else {
+                    					let str = "";
+                        				for (let reply of res) {
+                        					str += "<li>"
+    	                    						+ "<div class='flex'>"
+    	                    							+"<div class='profile-image'>"
+    	                    								+ "<img src='./resources/images/icon/profile_sample_img.png' alt=''>"
+    	                    							+ "</div>"
+    		                    						+ "<div class='profile-left'>"
+    		                    							+ "<div class='name'>" + reply.replyWriter + "</div>"
+    		                    							+ "<p class='category'><span>" + reply.createDate + "</span></p>"
+    		                    							+ "</p>"
+    		                    						+ "</div>"
+    	                    						+ "</div>"
+    	                    						+ "<div class='comment-contents'>"
+    	                    							+ "<p class='detail comment'>"
+    	                    								+ reply.replyContent
+    	                    							+ "</p>"
+    	                    							+ "<div class='btns'>"
+		                            						+ "<button type='button'>수정</button>"
+		                            						+ "<button type='button' data-bs-toggle='modal' data-bs-target='#replyDeleteModal'>삭제</button>"
+	                           							+ "</div>"
+    	                    						+ "</div>"                   						
+                        						+ "</li>";
+                        						
+                        				}
+                        				document.querySelector("#reply-area ul").innerHTML = str;
+                                        modalStart();
                     				}
-                    				document.querySelector("#reply-area ul").innerHTML = str;
                     			},
                     			error: function () {
                     				console.log("댓글목록 조회중 ajax 통신 실패");
@@ -468,6 +441,7 @@
                                 },
                                 type:"post",
                                 success:function(res){
+                                	console.log(res)
                                     if (res > 0) {//댓글작성 성공
                                     	document.getElementById("reply-content").value = "";
                                     	selectReplyList();
@@ -478,7 +452,38 @@
                                 }
                             })
                         }
+                    	 
+                    	 
                     </script>
+                    
+                  <!-- 댓글 삭제용 Modal -->
+				    <div class="modal fade" id="replyDeleteModal">
+				        <div class="modal-dialog modal-dialog-centered">
+		               <div class="modal-content">
+		           
+		                   <!-- Modal Header -->
+		                   <div class="modal-header" style="border-bottom: none; padding: 24px;">
+				                <h4 class="modal-title">댓글삭제</h4>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				                </div>
+				        
+				                <!-- Modal body -->
+				                <div class="modal-body" align="center" style="padding: 24px;">
+									<form action="<%=contextPath%>/replydelete.bo?replyNo=?" method="post">
+				                    	댓글을 삭제하시겠습니까?
+				                    	<br>
+				                    	<br>
+				                    	<button type="submit" class="btn btn-sm btn-danger updatest">삭제하기</button>
+				                    </form>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				    
+				    
+				    
+				    
+				    
                 </section>
             </div>
         </div>
@@ -498,5 +503,71 @@
         },
         });
     </script>
+    <script>
+    	function Done(){
+    		const done = document.getElementsByClassName("done-reply").value;
+            console.log(done);
+    	}
+    </script>
+    
+    
+<!-- The Modal -->
+<div class="modal" id="openModalBtn">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">회원 선택</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+        <ul id="authorList">
+            <!-- 댓글 작성자 목록을 여기에 추가 -->
+        </ul>
+        <button id="modalSubmit">선택</button>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+	function modalStart() {
+	    const authors = document.getElementsByClassName("done-reply");
+	    const uniqueAuthors = new Set();
+	    
+	    
+	
+	    for (let i = 0; i < authors.length; i++) {
+	    
+	        uniqueAuthors.add(authors[i].value);
+	    	
+	    }
+	
+	    const authorList = document.getElementById("authorList");
+	
+	    // 중복을 제거한 고유한 작성자 목록을 순회하며 리스트에 추가
+	    uniqueAuthors.forEach(author => {
+	        const listItem = document.createElement("li");
+	        listItem.textContent = author;		//author : 중복체크 된 댓글작성자
+	        authorList.appendChild(listItem);
+	        
+	        listItem.addEventListener("click", function() {
+	            const selectedUser = this.textContent;
+	            window.location.href = "trade.bo?bno=${b.boardNo}&rwriter=selectedUser";
+	            
+	        });	            
+        
+	    });
+	}
+</script>
+
+
+
 </body>
 </html>
