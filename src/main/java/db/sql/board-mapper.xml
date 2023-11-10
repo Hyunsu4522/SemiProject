@@ -344,7 +344,11 @@
 		INSERT INTO SALE_LOG 
 		VALUES (?, ?, SYSDATE,'Y',?)
 	</entry>
-	
+	<entry key="deleteReply">
+		 UPDATE REPLY
+		    SET STATUS = 'N'
+	      WHERE REPLY_NO = ?
+	</entry>
 </properties>
 
 

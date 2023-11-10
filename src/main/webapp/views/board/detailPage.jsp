@@ -8,7 +8,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html>j
 <head>
 <meta charset="UTF-8">
 <title>상세페이지</title>
@@ -270,6 +270,35 @@
         font-weight: bolder;
 
     }
+    /*modal*/
+.modal-title.updatest{
+   font-size: 24px;
+    font-weight: 700;
+    line-height: 35px;
+}
+.btn.updatest{
+   height: 60px;
+    padding: 0 40px;
+    font-weight: 700;
+    border-radius: 0;
+    margin-top: 16px;
+    background-color: #ff6f0f;
+    border: none;
+    font-size: 16px;
+}
+.btn-secondary.updatest:hover{
+   opacity: .8;
+    background-color: #ff6f0f;
+    border-color: #ff6f0f;
+}
+table.update  tbody tr td input{
+   width: 100%;
+    border: 1px solid gainsboro;
+    height: 40px;
+    margin: 15px 0px;
+    padding-left: 15px; 
+ 
+}
 </style>
 </head>
 <body>
@@ -381,8 +410,13 @@
     	                    							+ "<p class='detail comment'>"
     	                    								+ reply.replyContent
     	                    							+ "</p>"
+    	                    							+ "<div class='btns'>"
+		                            						+ "<button type='button'>수정</button>"
+		                            						+ "<button type='button' data-bs-toggle='modal' data-bs-target='#replyDeleteModal'>삭제</button>"
+	                           							+ "</div>"
     	                    						+ "</div>"                   						
                         						+ "</li>";
+                        						
                         				}
                         				document.querySelector("#reply-area ul").innerHTML = str;
                                         modalStart();
@@ -417,6 +451,35 @@
                     	 
                     	 
                     </script>
+                    
+                  <!-- 댓글 삭제용 Modal -->
+				    <div class="modal fade" id="replyDeleteModal">
+				        <div class="modal-dialog modal-dialog-centered">
+		               <div class="modal-content">
+		           
+		                   <!-- Modal Header -->
+		                   <div class="modal-header" style="border-bottom: none; padding: 24px;">
+				                <h4 class="modal-title">댓글삭제</h4>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				                </div>
+				        
+				                <!-- Modal body -->
+				                <div class="modal-body" align="center" style="padding: 24px;">
+									<form action="<%=contextPath%>/replydelete.bo?replyNo=?" method="post">
+				                    	댓글을 삭제하시겠습니까?
+				                    	<br>
+				                    	<br>
+				                    	<button type="submit" class="btn btn-sm btn-danger updatest">삭제하기</button>
+				                    </form>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				    
+				    
+				    
+				    
+				    
                 </section>
             </div>
         </div>
