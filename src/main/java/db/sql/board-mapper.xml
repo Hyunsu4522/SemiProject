@@ -311,11 +311,7 @@
 	                ,?
 	                )
   	 </entry>
-<<<<<<< HEAD
-  	 
-  	 
-  	 
-  	 
+
   	 <entry key="searchBoardList">
 
 	SELECT *
@@ -339,9 +335,7 @@
           )
       WHERE RNUM BETWEEN ? AND ?
       </entry>
-  	 
-  	 
-=======
+
   	 <entry key="increaseCount">
 		UPDATE BOARD
 		   SET COUNT = COUNT + 1
@@ -385,7 +379,7 @@
 		    SET STATUS = 'N'
 	      WHERE REPLY_NO = ?
 	</entry>
->>>>>>> 20b1767644dec98967a2b57295cc837cb51b0639
+
 </properties>
 
 

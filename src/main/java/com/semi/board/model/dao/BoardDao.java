@@ -554,9 +554,7 @@ public class BoardDao{
      
      return result;
   }
-<<<<<<< HEAD
-	
-  
+ 
   
   public ArrayList<Board> searchBoardList(Connection conn, PageInfo pi){
 	  Board b = null;
@@ -607,8 +605,7 @@ public class BoardDao{
   }
 
 }
-=======
-  
+
   
   public int increaseCount(Connection conn, int BoardNo) {
 		//update => 처리된행수 => 트랜잭션 처리
@@ -769,4 +766,4 @@ public class BoardDao{
 			return result;
 		}
 }
->>>>>>> 20b1767644dec98967a2b57295cc837cb51b0639
+
