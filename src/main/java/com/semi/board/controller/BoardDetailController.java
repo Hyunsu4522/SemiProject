@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.semi.board.model.service.BoardService;
-import com.semi.board.model.vo.Reply;
-import com.semi.member.model.vo.Member;
+import com.semi.board.model.vo.Board;
+import com.semi.common.model.vo.Attachment;
 
 /**
- * Servlet implementation class AjaxReplyInsertConroller
+ * Servlet implementation class BoardDetailController
  */
-@WebServlet("/rinsert.bo")
-public class AjaxReplyInsertConroller extends HttpServlet {
+@WebServlet("/detailPage.bo")
+public class BoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxReplyInsertConroller() {
+    public BoardDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +31,23 @@ public class AjaxReplyInsertConroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		String replyContent = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		Reply r = new Reply();
-		r.setReplyContent(replyContent);
-		r.setRefBoardNo(boardNo);
-		r.setReplyWriter(String.valueOf(userNo));
+		BoardService bService = new BoardService();
+		//조회수 1 증가시키고 디테일페이지에 보여줄 board객체를 가져와라
+		Board b = bService.increaseCount(boardNo);
 		
-		int result = new BoardService().insertReply(r);
-		
-		response.getWriter().print(result);
+		if (b != null) {
+			Attachment at = bService.selectAttachment(boardNo);
+			
+			request.setAttribute("b", b);
+			request.setAttribute("at", at);
+			
+			request.getRequestDispatcher("views/board/detailPage.jsp").forward(request, response);
+		} else {
+			request.setAttribute("errorMsg", "게시글 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

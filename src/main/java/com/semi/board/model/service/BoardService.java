@@ -1,6 +1,5 @@
 package com.semi.board.model.service;
 
-
 import static com.semi.common.JDBCTemplate.close;
 import static com.semi.common.JDBCTemplate.commit;
 import static com.semi.common.JDBCTemplate.getConnection;
@@ -14,6 +13,7 @@ import com.semi.board.model.vo.Board;
 import com.semi.board.model.vo.Reply;
 import com.semi.common.model.vo.Attachment;
 import com.semi.common.model.vo.PageInfo;
+import com.semi.member.model.vo.Member;
 
 public class BoardService {
 	public int selectSellListCount(int bwriter) {
@@ -92,7 +92,7 @@ public class BoardService {
 	      ArrayList<Board> list = new BoardDao().selectAllBoardList(conn, pi);
 	      
 	      close(conn);
-	      System.out.println(list);
+
 	      return list;
 	   }
 	
@@ -156,6 +156,7 @@ public class BoardService {
 		      return result;
 		   } 
 		    
+
 		public ArrayList<Board> searchBoardList(PageInfo pi){
 		      Connection conn = getConnection();
 		      
@@ -176,4 +177,74 @@ public class BoardService {
 		      
 		      return boardListCount;
 		   }
+
+		    public Board increaseCount(int boardNo) {
+				Connection conn = getConnection();
+				
+				BoardDao bDao = new BoardDao();
+				int result = bDao.increaseCount(conn, boardNo);
+				
+				Board b = null;
+				if (result > 0) {
+					commit(conn);
+					//정보조회
+					b = bDao.selectBoard(conn, boardNo);
+				} else {
+					rollback(conn);
+				}
+				
+				close(conn);
+				
+				return b;
+			}
+		    
+		    public Attachment selectAttachment(int boardNO) {
+				Connection conn = getConnection();
+				Attachment at = new BoardDao().selectAttachment(conn, boardNO);
+				
+				close(conn);
+				
+				return at;
+			}
+		    
+		    public Board selectBoard(int boardNo) {
+				Connection conn = getConnection();
+				Board b = new BoardDao().selectBoard(conn, boardNo);
+				
+				close(conn);
+				return b;
+			}
+		    public int saleYnAlter(Member m,int boardNo,String rWriter) {
+		    	Connection conn = getConnection();
+				
+				BoardDao bDao = new BoardDao();
+				int result1 = bDao.saleYnAlter(conn, m, boardNo);
+				int result2 = bDao.insertSaleLog(conn, m, boardNo, rWriter);
+				
+				if(result1 > 0 && result2 > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+				close(conn);
+				
+				return result1 * result2;
+				
+		    }
+		    
+		    public int deleteReply(int replyNo) {
+				Connection conn = getConnection();
+				int result = new BoardDao().deleteReply(conn, replyNo);
+				
+				if (result > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+				
+				close(conn);
+				
+				return result;
+			}
+
 }

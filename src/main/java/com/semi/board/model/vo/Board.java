@@ -15,6 +15,14 @@ public class Board {
 	private String address;
 	
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public int getAmount() {
 		return amount;
 	}
@@ -109,6 +117,33 @@ public class Board {
 		this.address = address;
 	}
 	
+	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter,
+			String createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardWriter = boardWriter;
+		this.createDate = createDate;
+	}
+	
+	
+	
+	//보드 디테일 페이지용 생성자 
+	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter, String createDate, int count,
+			String saleYn, int amount, String address) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardWriter = boardWriter;
+		this.createDate = createDate;
+		this.count = count;
+		this.saleYn = saleYn;
+		this.amount = amount;
+		this.address = address;
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -178,9 +213,11 @@ public class Board {
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardWriter=" + boardWriter + ", createDate=" + createDate + ", count=" + count + ", status="
-				+ status + ", saleYn=" + saleYn + "]";
+				+ status + ", saleYn=" + saleYn + ", amount=" + amount + ", titleImg=" + titleImg + ", address="
+				+ address + "]";
 	}
 
+	
 
 
 	

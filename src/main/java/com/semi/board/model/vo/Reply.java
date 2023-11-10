@@ -10,6 +10,8 @@ public class Reply {
 	private String status;
 	
 	public Reply() {}
+	
+	
 
 	public Reply(int replyNo, String replyContent, int refBoardNo, String replyWriter, String createDate,
 			String status) {

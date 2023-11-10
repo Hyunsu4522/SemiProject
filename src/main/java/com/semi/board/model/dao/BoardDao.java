@@ -15,6 +15,7 @@ import com.semi.board.model.vo.Board;
 import com.semi.board.model.vo.Reply;
 import com.semi.common.model.vo.Attachment;
 import com.semi.common.model.vo.PageInfo;
+import com.semi.member.model.vo.Member;
 
 public class BoardDao{
 	private Properties prop = new Properties();
@@ -132,7 +133,7 @@ public class BoardDao{
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(listCount);
+		
 		return listCount;
 		
 		
@@ -286,7 +287,6 @@ public class BoardDao{
         PreparedStatement pstmt = null;
         String sql = prop.getProperty("insertAttachmentList");
         
-           System.out.println(list);
            try {
               
               for (Attachment at : list) {
@@ -554,6 +554,7 @@ public class BoardDao{
      
      return result;
   }
+<<<<<<< HEAD
 	
   
   
@@ -606,3 +607,166 @@ public class BoardDao{
   }
 
 }
+=======
+  
+  
+  public int increaseCount(Connection conn, int BoardNo) {
+		//update => 처리된행수 => 트랜잭션 처리
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql); //미완성sql
+			pstmt.setInt(1, BoardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+  
+	  public Board selectBoard(Connection conn, int boardNo) {
+			//select => ResultSet(한행) => Board객체
+			
+			ResultSet rset = null;
+			Board b = null;
+			
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("selectBoard");
+			
+			try {
+				pstmt = conn.prepareStatement(sql); // 미완성
+				pstmt.setInt(1, boardNo);
+				
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+					b = new Board(
+								rset.getInt("board_no"),
+								rset.getString("board_title"),
+								rset.getString("board_content"),
+								rset.getString("user_id"),
+								rset.getString("create_date"),
+								rset.getInt("count"),
+								rset.getString("sale_yn"),
+								rset.getInt("amount"),
+								rset.getString("address")
+							);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+//			System.out.println(b);
+			
+			return b;
+			
+		}
+	  
+	  public Attachment selectAttachment(Connection conn, int boardNo) {
+			//select => ResultSet => Attachment
+			
+			Attachment at = null;
+			ResultSet rset = null;
+			
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("selectAttachment");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, boardNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if (rset.next()) {
+					at = new Attachment();
+					at.setFileNo(rset.getInt("file_no"));
+					at.setOriginName(rset.getString("origin_name"));
+					at.setChangeName(rset.getString("change_name"));
+					at.setFilePath(rset.getString("file_path"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return at;
+		}
+	  //board에서 sale_yn Y로 바꿈
+	  public int saleYnAlter(Connection conn,Member m,int boardNo) {
+	     int result = 0;
+	     
+	     PreparedStatement pstmt = null;
+	     String sql = prop.getProperty("saleYnAlter");
+	     
+	     try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, boardNo);
+	        
+	        result = pstmt.executeUpdate();
+	        
+	     } catch (SQLException e) {
+	        e.printStackTrace();
+	     } finally {
+	        close(pstmt);
+	     }
+	     
+	     return result;
+	  }
+	  
+	  //sale_log 에 insert문 날려서 거래정보담기
+	  public int insertSaleLog(Connection conn,Member m,int boardNo, String rWriter) {
+		  int result = 0;
+		     
+		     PreparedStatement pstmt = null;
+		     String sql = prop.getProperty("insertSaleLog");
+		     
+		     try {
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setInt(1, m.getUserNo());
+		        pstmt.setInt(2, boardNo);
+		        pstmt.setString(3, rWriter);
+		        
+		        result = pstmt.executeUpdate();
+		        
+		     } catch (SQLException e) {
+		        e.printStackTrace();
+		     } finally {
+		        close(pstmt);
+		     }
+		     
+		     return result;
+	  }
+	  public int deleteReply(Connection conn,int replyNo) {
+			
+			int result = 0;
+			
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteReply");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, replyNo);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+}
+>>>>>>> 20b1767644dec98967a2b57295cc837cb51b0639
