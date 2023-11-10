@@ -668,7 +668,7 @@ public class BoardDao{
 	  }
 	  
 	  //sale_log 에 insert문 날려서 거래정보담기
-	  public int insertSaleLog(Connection conn,Member m,int boardNo, int rWriter) {
+	  public int insertSaleLog(Connection conn,Member m,int boardNo, String rWriter) {
 		  int result = 0;
 		     
 		     PreparedStatement pstmt = null;
@@ -678,7 +678,7 @@ public class BoardDao{
 		        pstmt = conn.prepareStatement(sql);
 		        pstmt.setInt(1, m.getUserNo());
 		        pstmt.setInt(2, boardNo);
-		        pstmt.setInt(3, rWriter);
+		        pstmt.setString(3, rWriter);
 		        
 		        result = pstmt.executeUpdate();
 		        

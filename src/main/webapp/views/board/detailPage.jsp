@@ -473,9 +473,13 @@
 	function modalStart() {
 	    const authors = document.getElementsByClassName("done-reply");
 	    const uniqueAuthors = new Set();
+	    
+	    
 	
 	    for (let i = 0; i < authors.length; i++) {
+	    
 	        uniqueAuthors.add(authors[i].value);
+	    	
 	    }
 	
 	    const authorList = document.getElementById("authorList");
@@ -484,26 +488,14 @@
 	    uniqueAuthors.forEach(author => {
 	        const listItem = document.createElement("li");
 	        listItem.textContent = author;		//author : 중복체크 된 댓글작성자
+	        authorList.appendChild(listItem);
 	        
 	        listItem.addEventListener("click", function() {
-	            const selectedValue = this.textContent;
+	            const selectedUser = this.textContent;
+	            window.location.href = "trade.bo?bno=${b.boardNo}&rwriter=selectedUser";
 	            
-	            // controller로 selectedValue를 전달하는 AJAX 요청
-	            const xhr = new XMLHttpRequest();
-	            xhr.open("POST", "trade.bo", true);
-	            xhr.setRequestHeader("Content-Type", "application/json");
-	            xhr.onreadystatechange = function() {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-	                    // 요청이 성공적으로 완료되었을 때의 처리
-	                    console.log("전송 완료");
-	                    window.location.href = "trade.bo";
-	                    console.log("전송 완료2");
-	                }
-	            };
-	            xhr.send(JSON.stringify({ value: selectedValue }));
-	        });
-	        	   
-	        authorList.appendChild(listItem);
+	        });	            
+        
 	    });
 	}
 </script>
