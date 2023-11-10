@@ -1,7 +1,8 @@
 package com.semi.board.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,10 +32,12 @@ public class TradeConfirmController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
+		//Map<String, Integer> map = new HashMap<String, Integer>();
+		//Map.put("bno", Integer.parseInt(request.getParameter("bno")));
+		
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
-		int rWriter = Integer.parseInt(request.getParameter("rwriter"));
+		String rWriter = request.getParameter("rWriter");
 		Member m = ((Member)request.getSession().getAttribute("loginUser"));
 		
 		BoardService bService = new BoardService();// 여러번쓰기위해 생성해놓고 씀
@@ -44,7 +47,7 @@ public class TradeConfirmController extends HttpServlet {
 		//응답뷰요청
 		if(result > 0) {//성공시에는 목록으로 가야함(jsp/list.bo?cpage=1)
 			request.getSession().setAttribute("alertMsg", "거래완료 설정에 성공하였습니다.");
-			response.sendRedirect(request.getContextPath() +"/detailPage.bo?cpage=boardNo");
+			response.sendRedirect(request.getContextPath() +"/detailPage.bo?bno=" + boardNo);
 			
 		}else {//실패시 => 업로드된 파일 삭제해주고 에러페이지
 			request.setAttribute("errorMsg", "거래 완료설정에 실패하였습니다.");

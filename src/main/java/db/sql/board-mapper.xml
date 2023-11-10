@@ -79,7 +79,7 @@
             JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
             JOIN ATTACHMENT A ON (B.BOARD_NO = A.REF_BNO)
             WHERE B.BOARD_WRITER = ?
-            AND B.STATUS = 'Y'
+            	AND B.STATUS = 'Y'
             ORDER BY B.BOARD_NO DESC)C
             )
     WHERE RNUM BETWEEN 1 AND 5
@@ -208,7 +208,7 @@
 	            JOIN ATTACHMENT A ON (B.BOARD_NO = A.REF_BNO)
 	            JOIN SALE_LOG S on (B.BOARD_NO = S.BOARD_NO )
 	            WHERE S.BUYER = ?
-	            AND B.STATUS = 'Y'
+	            	AND B.STATUS = 'Y'
 	            ORDER BY B.BOARD_NO DESC)C
 	            )
 	    WHERE RNUM BETWEEN 1 AND 5
@@ -237,6 +237,7 @@
 		    JOIN ATTACHMENT A ON (B.BOARD_NO = A.REF_BNO)
             JOIN SALE_LOG S on (B.BOARD_NO = S.BOARD_NO)
 	        WHERE S.BUYER = ?
+	        and status = 'Y'
 	        and B.status = 'Y'
 		    ORDER BY BOARD_NO DESC) C
 		    )
@@ -322,8 +323,12 @@
 		     , BOARD_CONTENT
 		     , USER_ID
 		     , TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') "CREATE_DATE"
+		     , COUNT
+		     , AMOUNT
+		     , SALE_YN
+		     , M.ADDRESS
 		  FROM BOARD
-		  JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		  JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
 		 WHERE BOARD_NO = ?
 	</entry>
 	<entry key="selectAttachment">

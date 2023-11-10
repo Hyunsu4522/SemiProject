@@ -21,14 +21,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<!-- 23110_임동건 추가 -->
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <style>
     .contents-wrap {
         padding-top: 24px;
@@ -331,7 +323,7 @@ table.update  tbody tr td input{
                             </div>
                             <div class="profile-left">
                                 <div class="name"><%=b.getBoardWriter()%></div>
-                                <div class="adress">서울특별시 강남구 역삼동</div>
+                                <div class="adress"><%=b.getAddress() %></div>
                             </div>                     
                         </div>
                     </a>
@@ -349,7 +341,7 @@ table.update  tbody tr td input{
                     </p>
                     <p class="detail"><%=b.getBoardContent()%>
                     </p>
-                    <span class="counts">조회수<span>3</span></span>
+                    <span class="counts">조회수<span><%=b.getCount() %></span></span>
                 </section>
                 <section class="comment">
                     <h2>댓글<span>(2)</span></h2>
@@ -536,9 +528,13 @@ table.update  tbody tr td input{
 	function modalStart() {
 	    const authors = document.getElementsByClassName("done-reply");
 	    const uniqueAuthors = new Set();
+	    
+	    
 	
 	    for (let i = 0; i < authors.length; i++) {
+	    
 	        uniqueAuthors.add(authors[i].value);
+	    	
 	    }
 	
 	    const authorList = document.getElementById("authorList");
@@ -547,26 +543,14 @@ table.update  tbody tr td input{
 	    uniqueAuthors.forEach(author => {
 	        const listItem = document.createElement("li");
 	        listItem.textContent = author;		//author : 중복체크 된 댓글작성자
+	        authorList.appendChild(listItem);
 	        
 	        listItem.addEventListener("click", function() {
-	            const selectedValue = this.textContent;
+	            const selectedUser = this.textContent;
+	            window.location.href = "trade.bo?bno=${b.boardNo}&rwriter=selectedUser";
 	            
-	            // controller로 selectedValue를 전달하는 AJAX 요청
-	            const xhr = new XMLHttpRequest();
-	            xhr.open("POST", "trade.bo", true);
-	            xhr.setRequestHeader("Content-Type", "application/json");
-	            xhr.onreadystatechange = function() {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-	                    // 요청이 성공적으로 완료되었을 때의 처리
-	                    console.log("전송 완료");
-	                    window.location.href = "trade.bo";
-	                    console.log("전송 완료2");
-	                }
-	            };
-	            xhr.send(JSON.stringify({ value: selectedValue }));
-	        });
-	        	   
-	        authorList.appendChild(listItem);
+	        });	            
+        
 	    });
 	}
 </script>
