@@ -120,21 +120,23 @@
                          
                     <nav class="nav" >
                        
-                        <div class = "product" onclick="location.href='<%=contextPath%>/detailPage.bo'" >
+                        <div class = "product" onclick="location.href='<%=contextPath%>/detailPage.bo?bno=<%=b.getBoardNo() %>'" >
 							<img src="<%=contextPath %>/<%=b.getTitleImg() %>">
                             <ul class="product-menu">
+                            	<li><%= b.getBoardNo() %></li>
                                 <li ><%=b.getBoardTitle() %></li>
 								<br>
                                 <li>판매중</li>
 								<br>
-                                <li class="price"><%=b.getAmount() %>원</li>
-								
-                            </ul>
-							
+                                <li class="price"><%=b.getAmount() %>원</li>		
+                            </ul>	
                         </div>		
                     </nav>
 					<%} %>
                 </div>  
+                
+                
+                
 				<div class="paging-area" align="center">
 					<%if(currentPage != 1){ %>
 						<button onclick="location.href='<%=contextPath%>/boardlist.bo?cpage=<%=currentPage - 1%>'">&lt;</button>

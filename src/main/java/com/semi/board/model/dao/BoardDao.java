@@ -586,12 +586,13 @@ public class BoardDao{
 			
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("selectBoard");
-			
+		
 			try {
 				pstmt = conn.prepareStatement(sql); // 미완성
 				pstmt.setInt(1, boardNo);
 				
 				rset = pstmt.executeQuery();
+				
 				if(rset.next()) {
 					b = new Board(
 								rset.getInt("board_no"),
@@ -599,7 +600,8 @@ public class BoardDao{
 								rset.getString("board_content"),
 								rset.getString("user_id"),
 								rset.getString("create_date")
-							);
+								
+							);	
 				}
 				
 			} catch (SQLException e) {
@@ -608,10 +610,9 @@ public class BoardDao{
 				close(rset);
 				close(pstmt);
 			}
-			System.out.println(b);
-			
+	
 			return b;
-			
+	
 		}
 	  
 	  public Attachment selectAttachment(Connection conn, int boardNo) {

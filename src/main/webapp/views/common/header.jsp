@@ -34,7 +34,7 @@
         <div class="inner-wrap">
             <div class="gnb">
                 <nav class="nav">
-                    <h1><a href="#none"><img src="resources/images/icon/daangn_logo.png" alt="daangn logo"><span class="sr-only">당근마켓<span></a></h1>
+                    <h1><a href="<%=contextPath%>"><img src="resources/images/icon/daangn_logo.png" alt="daangn logo"><span class="sr-only">당근마켓<span></a></h1>
                     <ul class="menu">
                         <li><a href="<%=contextPath %>/boardlist.bo?cpage=1">중고거래</a></li>
                     </ul>

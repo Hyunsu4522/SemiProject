@@ -6,6 +6,7 @@
 	ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
 	Attachment at = (Attachment)request.getAttribute("at");
 	
+	
 %>
 
 <!DOCTYPE html>
@@ -264,21 +265,30 @@
         <div class="contents" id="contents">
         <input type="hidden" name="bno" value="<%=b.getBoardNo()%>" >
             <div class="contents-wrap">
-                <h1 class="sr-only">루이비통 카드지갑</h1>
+                <h1 class="sr-only"><%=b.getBoardTitle() %></h1>
                 <section class="swiper-images">
                     <!-- Swiper -->
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><a href="#none"><img src="./resources/images/img/prd_sample_img.jpg" alt="루이비통 카드지갑의 여성잡화 구월동 1"></a></div>
-                            <div class="swiper-slide"><a href="#none"><img src="./resources/images/img/prd_sample_img.jpg" alt="루이비통 카드지갑의 여성잡화 구월동 1"></a></div>
-                            <div class="swiper-slide"><a href="#none"><img src="./resources/images/img/prd_sample_img.jpg" alt="루이비통 카드지갑의 여성잡화 구월동 1"></a></div>
+                            <div class="swiper-slide"><a href ="#" onclick="openImg();"> <img id = "image" src="./resources/images/img/prd_sample_img.jpg" alt="루이비통 카드지갑의 여성잡화 구월동 1"></a></div>
+                            <div class="swiper-slide"><a href="#" onclick="openImg();"><img id = "image" src="<%=contextPath %>/<%=b.getTitleImg() %>" alt="루이비통 카드지갑의 여성잡화 구월동 1"></a></div>
+                            <div class="swiper-slide"><a href="#" onclick="openImg();"><img id = "image" src="./resources/images/img/prd_sample_img.jpg" alt="루이비통 카드지갑의 여성잡화 구월동 1"></a></div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-pagination"></div>
+                     
                     </div>
                 </section>
                  
+                <script>
+	                function openImg(){
+	            		var image = document.getElementById('image');
+	            		var source = image.src;
+	            		window.open(source);
+	            	}
+                
+                </script>
                 <section class="profile">
                     <a href="#none">
                         <h3 class="sr-only">프로필</h3>
@@ -287,23 +297,22 @@
                                 <img src="./resources/images/icon/profile_sample_img.png" alt="" >
                             </div>
                             <div class="profile-left">
-                                <div class="name">닉네임</div>
-                                <div class="adress">서울특별시 강남구 역삼동</div>
+                                <div class="name"><%=b.getBoardWriter() %></div>
+                                <div class="adress">@@@주소주소@@@</div>
                             </div>
                         </div>
                     </a>
                 </section>
                 <section class="prd-detail">
-                    <h1 class="prd-title">루이비통 카드지갑</h1>
+                    <h1 class="prd-title"><%=b.getBoardTitle() %></h1>
                     <p class="category">
-                        여성잡화 ∙<span> 4일전</span>
+                        여성잡화 ∙<span> 4일전<%=b.getAmount() %></span>
                     </p>
                     <p class="prd-price">
-                        18,000원
+                        <%=b.getAmount() %>원
                     </p>
-                    <p class="detail">공홈에서 구매하고 인천롯백에서 픽업한 정품입니다!
-                        <br>사용감 많아요!!!
-                        <br>사진 꼭 확인하시고 꼭 구매하실 분만 연락주세요!
+                    <p class="detail">
+                    	<%=b.getBoardContent() %>
                     </p>
                     <span class="counts">채팅<span>26</span></span>
                 </section>
@@ -412,6 +421,8 @@
                     		//댓글 가져와서 그려주기
                     		selectReplyList();
                     	}
+                    	
+                    	
                     	function selectReplyList(){
                     		$.ajax({
                     			url: "rlist.bo",

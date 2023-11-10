@@ -91,7 +91,7 @@
 
             <fieldset >
                 <h1 align="center"><img src="resources/images/icon/daangn_logo.png" alt="daangn logo"> <span class="sr-only"><span></a></h1>
-                    <button id="closeBtn" onclick="closeForm()">X</button>
+                    <button id="closeBtn" onclick="<%=contextPath%>">X</button>
                     <h1 align="center"> 로그인</h1>
             
                 <label align="center">

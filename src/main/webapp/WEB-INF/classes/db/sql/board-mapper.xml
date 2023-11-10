@@ -316,12 +316,14 @@
 		 WHERE BOARD_NO = ?
 		   AND STATUS = 'Y'
 	</entry>
+	
   	 <entry key="selectBoard">
 		SELECT BOARD_NO
 		     , BOARD_TITLE
 		     , BOARD_CONTENT
 		     , USER_ID
 		     , TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') "CREATE_DATE"
+		    
 		  FROM BOARD
 		  JOIN MEMBER ON (BOARD_WRITER = USER_NO)
 		 WHERE BOARD_NO = ?

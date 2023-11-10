@@ -163,6 +163,7 @@ public class BoardService {
 				int result = bDao.increaseCount(conn, boardNo);
 				
 				Board b = null;
+
 				if (result > 0) {
 					commit(conn);
 					//정보조회
