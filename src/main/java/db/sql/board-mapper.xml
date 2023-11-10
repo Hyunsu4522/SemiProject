@@ -307,6 +307,35 @@
 	                ,?
 	                )
   	 </entry>
+  	 
+  	 
+  	 
+  	 
+  	 <entry key="searchBoardList">
+
+	SELECT *
+      FROM
+         (SELECT ROWNUM AS "RNUM", A.*
+          FROM (SELECT BOARD_NO,
+            BOARD_TITLE,
+            TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') AS "CREATE_DATE",
+            COUNT,
+            AMOUNT,
+            FILE_PATH || CHANGE_NAME "TITLE_IMG"
+            
+       FROM BOARD
+       
+       JOIN ATTACHMENT ON (BOARD_NO = REF_BNO)
+       
+       WHERE BOARD.STATUS = 'Y'
+       AND         BOARD.SALE_YN = 'N'
+       
+       ORDER BY BOARD_NO DESC) A
+          )
+      WHERE RNUM BETWEEN ? AND ?
+      </entry>
+  	 
+  	 
 </properties>
 
 

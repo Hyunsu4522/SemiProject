@@ -38,12 +38,11 @@
                     <ul class="menu">
                         <li><a href="<%=contextPath %>/boardlist.bo?cpage=1">중고거래</a></li>
                     </ul>
-                    <div class="search">
-                        <form action="">
-                            <input type="text" class="search" placeholder="물품이나 동네를 검색해보세요">
-                        </form>
-                        <button>검색하기</button>
-                    </div>
+                    
+                    <ul class="menu">
+                        <li><a href="<%=contextPath %>/searchForm.bo">검색하기</a></li>
+                    </ul>
+                     
                     <% if(loginUser == null) { %>
                     <div class="utill">
                         <div><a href="<%=contextPath%>/loginForm.me">로그인</a></div>

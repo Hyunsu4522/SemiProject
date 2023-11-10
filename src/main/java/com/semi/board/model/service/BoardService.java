@@ -155,4 +155,25 @@ public class BoardService {
 		      
 		      return result;
 		   } 
+		    
+		public ArrayList<Board> searchBoardList(PageInfo pi){
+		      Connection conn = getConnection();
+		      
+		      ArrayList<Board> list = new BoardDao().searchBoardList(conn, pi);
+		      
+		      close(conn);
+		      System.out.println(list);
+		      return list;
+		   }		    
+		
+		
+		 public int searchBoardListCount() {
+		      Connection conn = getConnection();
+		      
+		      int boardListCount = new BoardDao().selectBoardListCount(conn);
+		      
+		      close(conn);
+		      
+		      return boardListCount;
+		   }
 }

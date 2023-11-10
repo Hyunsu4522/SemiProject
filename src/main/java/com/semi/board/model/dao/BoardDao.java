@@ -555,4 +555,54 @@ public class BoardDao{
      return result;
   }
 	
+  
+  
+  public ArrayList<Board> searchBoardList(Connection conn, PageInfo pi){
+	  Board b = null;
+      ArrayList<Board> list = new ArrayList<>();
+      
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      
+      String sql = prop.getProperty("searchBoardList");
+      
+      try {
+         pstmt = conn.prepareStatement(sql);
+         //System.out.println(sql);
+         
+         int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+         int endRow = startRow + pi.getBoardLimit() -1;
+         
+         pstmt.setInt(1, startRow);
+         pstmt.setInt(2, endRow);
+         //System.out.println(startRow);
+         //System.out.println(endRow);
+         rset = pstmt.executeQuery();
+         //System.out.println(rset);
+         //System.out.println(rset.next());
+         while(rset.next()) {
+            b = new Board();
+            b.setBoardNo(rset.getInt("board_no"));
+            b.setBoardTitle(rset.getString("board_title"));
+            b.setCreateDate(  rset.getString("create_date"));
+            b.setCount(   rset.getInt("count"));
+            b.setAmount(rset.getInt("amount"));
+            b.setTitleImg(  rset.getString("TITLE_IMG"));
+            
+            list.add(b);
+         }
+         
+         
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         close(rset);
+         close(pstmt);
+      }
+      
+      //System.out.println(list.size());
+      
+      return list;
+  }
+
 }
