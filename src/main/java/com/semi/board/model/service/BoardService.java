@@ -192,7 +192,7 @@ public class BoardService {
 				close(conn);
 				return b;
 			}
-		    public int saleYnAlter(Member m,int boardNo,int rWriter) {
+		    public int saleYnAlter(Member m,int boardNo,String rWriter) {
 		    	Connection conn = getConnection();
 				
 				BoardDao bDao = new BoardDao();
